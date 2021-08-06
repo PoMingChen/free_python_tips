@@ -22,11 +22,12 @@ mpg_df
 weight_by_cyl_df = mpg_df >> \
     group_by("cylinders") >> \
     summarize(
-        mean_weight = np.mean(_.weight),
+        mean_weight = np.mean(_.weight), #Similar the .$ColumnName in R
         sd_weight   = np.std(_.weight)
     )
 
 weight_by_cyl_df
+type(weight_by_cyl_df)
 
 # 2.0 GROUP BY + MUTATE
 # Goal: De-mean the mpg by average of each cylinder
@@ -45,6 +46,7 @@ mpg_demeaned_by_cyl_df = mpg_df >> \
 mpg_demeaned_by_cyl_df
 
 # 3.0 PANDAS 
+# .style #Extend the table with 398 rows
 mpg_demeaned_by_cyl_df[['name', 'cylinders', 'mpg_demeaned_by_cyl']] \
     .sort_values('mpg_demeaned_by_cyl', ascending = False) \
     .style \
